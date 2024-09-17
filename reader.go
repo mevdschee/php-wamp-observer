@@ -67,6 +67,7 @@ func handleWampConn(conn net.Conn) {
 
 			duration := time.Since(start).Seconds()
 			stats.Add(protocol+"-"+direction, msgName, duration)
+			stats.Add(protocol+"-"+direction, "ALL", duration)
 		}
 		log.Printf("received input: %v", input)
 	}
