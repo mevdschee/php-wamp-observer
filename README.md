@@ -16,4 +16,47 @@ Now observe the stats:
 
 http://localhost:4000/
 
+Example stats:
+
+    wamp_in_response_count{tag="ALL"} 5747
+    wamp_in_response_count{tag="hello1"} 641
+    wamp_in_response_count{tag="hello2"} 608
+    wamp_in_response_count{tag="hello3"} 631
+    wamp_in_response_count{tag="hello4"} 607
+    wamp_in_response_count{tag="hello5"} 651
+    wamp_in_response_count{tag="hello6"} 637
+    wamp_in_response_count{tag="hello7"} 643
+    wamp_in_response_count{tag="hello8"} 651
+    wamp_in_response_count{tag="hello9"} 678
+    wamp_in_response_sum{tag="ALL"} 432.056
+    wamp_in_response_sum{tag="hello1"} 48.496
+    wamp_in_response_sum{tag="hello2"} 45.984
+    wamp_in_response_sum{tag="hello3"} 47.966
+    wamp_in_response_sum{tag="hello4"} 44.981
+    wamp_in_response_sum{tag="hello5"} 48.651
+    wamp_in_response_sum{tag="hello6"} 47.589
+    wamp_in_response_sum{tag="hello7"} 47.854
+    wamp_in_response_sum{tag="hello8"} 49.659
+    wamp_in_response_sum{tag="hello9"} 50.877
+    wamp_in_timeout_count{tag="ALL"} 1361
+    wamp_in_timeout_count{tag="hello1"} 173
+    wamp_in_timeout_count{tag="hello2"} 148
+    wamp_in_timeout_count{tag="hello3"} 157
+    wamp_in_timeout_count{tag="hello4"} 163
+    wamp_in_timeout_count{tag="hello5"} 153
+    wamp_in_timeout_count{tag="hello6"} 125
+    wamp_in_timeout_count{tag="hello7"} 146
+    wamp_in_timeout_count{tag="hello8"} 149
+    wamp_in_timeout_count{tag="hello9"} 147
+    wamp_in_timeout_sum{tag="ALL"} 4083.620
+    wamp_in_timeout_sum{tag="hello1"} 519.076
+    wamp_in_timeout_sum{tag="hello2"} 444.069
+    wamp_in_timeout_sum{tag="hello3"} 471.073
+    wamp_in_timeout_sum{tag="hello4"} 489.073
+    wamp_in_timeout_sum{tag="hello5"} 459.073
+    wamp_in_timeout_sum{tag="hello6"} 375.056
+    wamp_in_timeout_sum{tag="hello7"} 438.066
+    wamp_in_timeout_sum{tag="hello8"} 447.070
+    wamp_in_timeout_sum{tag="hello9"} 441.062
+
 Enjoy!
