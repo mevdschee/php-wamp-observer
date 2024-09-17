@@ -1,3 +1,3 @@
-module github.com/mevdschee/logreader
+module github.com/mevdschee/php-wamp-observer
 
 go 1.22.2

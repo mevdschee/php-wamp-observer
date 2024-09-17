@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mevdschee/logreader/statistics"
-	"github.com/mevdschee/logreader/tracking"
+	"github.com/mevdschee/php-wamp-observer/statistics"
+	"github.com/mevdschee/php-wamp-observer/tracking"
 )
 
 var stats = statistics.New()
