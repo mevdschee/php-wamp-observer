@@ -12,11 +12,11 @@ while (true) {
   if (WampObserver::logging()) {
     WampObserver::log($protocol, $direction, $inMsg);
   }
-  usleep(random_int(500, 1000) * 1000);
+  usleep(random_int(50, 100) * 1000);
   if (WampObserver::logging()) {
     WampObserver::log($protocol, $direction, $outMsg);
   }
-  usleep(250 * 1000);
+  usleep(25 * 1000);
 }
 
 class WampObserver
