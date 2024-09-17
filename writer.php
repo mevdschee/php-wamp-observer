@@ -13,8 +13,9 @@ while (true) {
     WampObserver::log($protocol, $direction, $inMsg);
   }
   usleep(random_int(50, 100) * 1000);
+  if (random_int(1, 9) == 5) sleep(3);
   if (WampObserver::logging()) {
-    WampObserver::log($protocol, $direction, $outMsg);
+    if (random_int(1, 9) != 5) WampObserver::log($protocol, $direction, $outMsg);
   }
   usleep(25 * 1000);
 }

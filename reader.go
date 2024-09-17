@@ -60,15 +60,24 @@ func handleWampConn(conn net.Conn) {
 		msgId := strings.Trim(msgFields[1], "\"")
 		msgName := strings.Trim(msgFields[2], "\"")
 		if strings.TrimSpace(msgType) == "2" {
-			track.Add(msgId, time.Now())
+			track.Add(msgId, time.Now(), 3*time.Second, func() {
+				start, ok := track.Del(msgId)
+				if ok {
+					duration := time.Since(start).Seconds()
+					stats.Add(protocol+"_"+direction+"_timeout", msgName, duration)
+					stats.Add(protocol+"_"+direction+"_timeout", "ALL", duration)
+				}
+			})
 		}
 		if strings.TrimSpace(msgType) == "3" {
-			start := track.Del(msgId)
-
-			duration := time.Since(start).Seconds()
-			stats.Add(protocol+"-"+direction, msgName, duration)
-			stats.Add(protocol+"-"+direction, "ALL", duration)
+			start, ok := track.Del(msgId)
+			if ok {
+				duration := time.Since(start).Seconds()
+				stats.Add(protocol+"_"+direction+"_response", msgName, duration)
+				stats.Add(protocol+"_"+direction+"_response", "ALL", duration)
+			}
 		}
-		log.Printf("received input: %v", input)
+		//log.Printf("track length: %v", track.Len())
+		//log.Printf("received input: %v", input)
 	}
 }
