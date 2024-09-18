@@ -9,13 +9,21 @@ while (true) {
   $outMsg = '[3,"' . $id . '","hello' . $t . '","msg":"hello world' . $i . ' reply"}]';
   $protocol = 'wamp';
   $direction = 'in';
+  // send request
   if (WampObserver::logging()) {
     WampObserver::log($protocol, $direction, $inMsg);
   }
   usleep(random_int(50, 100) * 1000);
-  if (random_int(1, 9) == 5) sleep(3);
+  // 1 ot of 9 gets delayed for the timeout period
+  if (random_int(1, 9) == 5) {
+    sleep(3);
+  }
+  // send response
   if (WampObserver::logging()) {
-    if (random_int(1, 9) != 5) WampObserver::log($protocol, $direction, $outMsg);
+    // 1 ot of 9 does not get answered
+    if (random_int(1, 9) != 5) {
+      WampObserver::log($protocol, $direction, $outMsg);
+    }
   }
   usleep(25 * 1000);
 }
