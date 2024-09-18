@@ -78,6 +78,6 @@ func handleWampConn(conn net.Conn) {
 			}
 		}
 		//log.Printf("track length: %v", track.Len())
-		//log.Printf("received input: %v", input)
+		log.Printf("received input: %v", input)
 	}
 }
