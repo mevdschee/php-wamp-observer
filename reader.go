@@ -77,6 +77,14 @@ func handleWampConn(conn net.Conn) {
 				stats.Add(protocol+"_"+direction+"_response", "ALL", duration)
 			}
 		}
+		if strings.TrimSpace(msgType) == "4" {
+			start, ok := track.Del(msgId)
+			if ok {
+				duration := time.Since(start).Seconds()
+				stats.Add(protocol+"_"+direction+"_error", msgName, duration)
+				stats.Add(protocol+"_"+direction+"_error", "ALL", duration)
+			}
+		}
 		//log.Printf("track length: %v", track.Len())
 		log.Printf("received input: %v", input)
 	}
