@@ -58,10 +58,10 @@ func handleWampConn(conn net.Conn) {
 		msgFields := strings.SplitN(strings.Trim(message, "[]"), ",", 4)
 		msgType := msgFields[0]
 		msgId := strings.Trim(msgFields[1], "\"")
-		msgName := strings.Trim(msgFields[2], "\"")
 		if strings.TrimSpace(msgType) == "2" {
-			track.Add(msgId, time.Now(), 3*time.Second, func() {
-				start, ok := track.Del(msgId)
+			msgName := strings.Trim(msgFields[2], "\"")
+			track.Add(msgId, msgName, time.Now(), 3*time.Second, func() {
+				start, msgName, ok := track.Del(msgId)
 				if ok {
 					duration := time.Since(start).Seconds()
 					stats.Add(protocol+"_"+direction+"_timeout", msgName, duration)
@@ -70,7 +70,7 @@ func handleWampConn(conn net.Conn) {
 			})
 		}
 		if strings.TrimSpace(msgType) == "3" {
-			start, ok := track.Del(msgId)
+			start, msgName, ok := track.Del(msgId)
 			if ok {
 				duration := time.Since(start).Seconds()
 				stats.Add(protocol+"_"+direction+"_response", msgName, duration)
@@ -78,7 +78,7 @@ func handleWampConn(conn net.Conn) {
 			}
 		}
 		if strings.TrimSpace(msgType) == "4" {
-			start, ok := track.Del(msgId)
+			start, msgName, ok := track.Del(msgId)
 			if ok {
 				duration := time.Since(start).Seconds()
 				stats.Add(protocol+"_"+direction+"_error", msgName, duration)
