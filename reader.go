@@ -12,7 +12,7 @@ import (
 	"github.com/mevdschee/php-wamp-observer/tracking"
 )
 
-var stats = statistics.New()
+var stats = statistics.New("message")
 var track = tracking.New()
 
 func main() {
