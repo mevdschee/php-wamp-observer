@@ -5,8 +5,9 @@ while (true) {
   $id = uniqid();
   $i++;
   $t = random_int(1, 9);
-  $inMsg = '[2,"' . $id . '","hello' . $t . '",{"msg":"hello world' . $i . '"}]';
-  $outMsg = '[3,"' . $id . '","hello' . $t . '","msg":"hello world' . $i . ' reply"}]';
+  $inMsg = '[2,"' . $id . '","hello' . $t . '",{"msg":"hello world' . $i . ' details"}]';
+  $outMsg = '[3,"' . $id . '","{msg":"hello world' . $i . ' reply details"}]';
+  $errorMsg = '[4,"' . $id . ',"{msg":"hello world' . $i . ' error details"}]';
   $protocol = 'wamp';
   $direction = 'in';
   // send request
@@ -14,15 +15,20 @@ while (true) {
     WampObserver::log($protocol, $direction, $inMsg);
   }
   usleep(random_int(50, 100) * 1000);
-  // 1 ot of 9 gets delayed for the timeout period
+  // 1 out of 9 gets delayed for the timeout period
   if (random_int(1, 9) == 5) {
     sleep(3);
   }
   // send response
   if (WampObserver::logging()) {
-    // 1 ot of 9 does not get answered
+    // 1 out of 9 does not get answered
     if (random_int(1, 9) != 5) {
-      WampObserver::log($protocol, $direction, $outMsg);
+      // 1 out of 99 is an error
+      if (random_int(1, 99) == 5) {
+        WampObserver::log($protocol, $direction, $errorMsg);
+      } else {
+        WampObserver::log($protocol, $direction, $outMsg);
+      }
     }
   }
   usleep(25 * 1000);
