@@ -17,7 +17,7 @@ while (true) {
   usleep(random_int(50, 100) * 100);
   // 1 out of 9 gets delayed for the timeout period
   if (random_int(1, 9) == 5) {
-    sleep(3);
+    usleep(300 * 1000);
   }
   // send response
   if (WampObserver::logging()) {
