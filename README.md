@@ -12,11 +12,13 @@ And to stop:
 
     killall php
 
-Now observe the stats:
+Now observe the metrics:
 
 http://localhost:4000/
 
-Example stats:
+NB: The metrics are Prometheus compatible and follow the [OpenMetrics specification](https://github.com/OpenObservability/OpenMetrics/).
+
+Example metrics:
 
     # HELP wamp_in_errors_seconds A summary of the wamp in errors.
     # TYPE wamp_in_errors_seconds summary
