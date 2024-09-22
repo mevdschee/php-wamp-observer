@@ -64,7 +64,7 @@ func handleWampConn(conn net.Conn) {
 		msgId := strings.Trim(msgFields[1], "\"")
 		if strings.TrimSpace(msgType) == "2" {
 			msgName := strings.Trim(msgFields[2], "\"")
-			track.Add(msgId, msgName, time.Now(), 3*time.Second, func() {
+			track.Add(msgId, msgName, time.Now(), 300*time.Millisecond, func() {
 				start, msgName, ok := track.Del(msgId)
 				if ok {
 					duration := time.Since(start).Seconds()
