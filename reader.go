@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"log"
 	"net"
 	"net/http"
@@ -16,18 +17,21 @@ var stats = statistics.New()
 var track = tracking.New()
 
 func main() {
-	go serve()
-	wampListener()
+	listenAddress := flag.String("listen", ":6666", "address to listen for high frequent events over TCP")
+	metricsAddress := flag.String("metrics", ":4000", "address to listen for Prometheus metric scraper over HTTP")
+	flag.Parse()
+	go serve(*metricsAddress)
+	wampListener(*listenAddress)
 }
 
-func serve() {
-	http.ListenAndServe(":4000", http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
+func serve(metricsAddress string) {
+	http.ListenAndServe(metricsAddress, http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
 		stats.Write(&writer)
 	}))
 }
 
-func wampListener() {
-	lis, err := net.Listen("tcp", ":6666")
+func wampListener(listenAddress string) {
+	lis, err := net.Listen("tcp", listenAddress)
 	if err != nil {
 		log.Fatalf("failed to start listener: %v", err)
 	}
