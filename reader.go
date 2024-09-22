@@ -12,7 +12,7 @@ import (
 	"github.com/mevdschee/php-wamp-observer/tracking"
 )
 
-var stats = statistics.New("message")
+var stats = statistics.New()
 var track = tracking.New()
 
 func main() {
@@ -64,8 +64,8 @@ func handleWampConn(conn net.Conn) {
 				start, msgName, ok := track.Del(msgId)
 				if ok {
 					duration := time.Since(start).Seconds()
-					stats.Add(protocol+"_"+direction+"_timeout", msgName, duration)
-					stats.Add(protocol+"_"+direction+"_timeout", "ALL", duration)
+					stats.Add(protocol+"_"+direction+"_timeout", "message", msgName, duration)
+					stats.Add(protocol+"_"+direction+"_timeout", "message", "ALL", duration)
 				}
 			})
 		}
@@ -73,16 +73,16 @@ func handleWampConn(conn net.Conn) {
 			start, msgName, ok := track.Del(msgId)
 			if ok {
 				duration := time.Since(start).Seconds()
-				stats.Add(protocol+"_"+direction+"_response", msgName, duration)
-				stats.Add(protocol+"_"+direction+"_response", "ALL", duration)
+				stats.Add(protocol+"_"+direction+"_response", "message", msgName, duration)
+				stats.Add(protocol+"_"+direction+"_response", "message", "ALL", duration)
 			}
 		}
 		if strings.TrimSpace(msgType) == "4" {
 			start, msgName, ok := track.Del(msgId)
 			if ok {
 				duration := time.Since(start).Seconds()
-				stats.Add(protocol+"_"+direction+"_error", msgName, duration)
-				stats.Add(protocol+"_"+direction+"_error", "ALL", duration)
+				stats.Add(protocol+"_"+direction+"_error", "message", msgName, duration)
+				stats.Add(protocol+"_"+direction+"_error", "message", "ALL", duration)
 			}
 		}
 		//log.Printf("track length: %v", track.Len())
