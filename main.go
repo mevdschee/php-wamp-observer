@@ -68,7 +68,7 @@ func handleWampConn(conn net.Conn) {
 				start, msgName, ok := track.Del(msgId)
 				if ok {
 					duration := time.Since(start).Seconds()
-					stats.Add(protocol+"_"+direction+"_timeout", "message", msgName, duration)
+					stats.Add(protocol+"_"+direction+"_timeouts", "message", msgName, duration)
 				}
 			})
 		}
@@ -76,14 +76,14 @@ func handleWampConn(conn net.Conn) {
 			start, msgName, ok := track.Del(msgId)
 			if ok {
 				duration := time.Since(start).Seconds()
-				stats.Add(protocol+"_"+direction+"_response", "message", msgName, duration)
+				stats.Add(protocol+"_"+direction+"_responses", "message", msgName, duration)
 			}
 		}
 		if strings.TrimSpace(msgType) == "4" {
 			start, msgName, ok := track.Del(msgId)
 			if ok {
 				duration := time.Since(start).Seconds()
-				stats.Add(protocol+"_"+direction+"_error", "message", msgName, duration)
+				stats.Add(protocol+"_"+direction+"_errors", "message", msgName, duration)
 			}
 		}
 		//log.Printf("track length: %v", track.Len())
