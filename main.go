@@ -13,7 +13,7 @@ import (
 	"github.com/mevdschee/php-wamp-observer/tracking"
 )
 
-var stats = statistics.New([]float64{0.001, 0.01, 0.1, 1, 10, 100})
+var stats = statistics.New([]float64{.005, .01, .025, .05, .1, .25, .5, 1, 2.5, 5, 10})
 var track = tracking.New()
 
 func main() {
