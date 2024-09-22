@@ -14,7 +14,7 @@ while (true) {
   if (WampObserver::logging()) {
     WampObserver::log($protocol, $direction, $inMsg);
   }
-  usleep(random_int(50, 100) * 1000);
+  usleep(random_int(50, 100) * 100);
   // 1 out of 9 gets delayed for the timeout period
   if (random_int(1, 9) == 5) {
     sleep(3);
@@ -31,7 +31,7 @@ while (true) {
       }
     }
   }
-  usleep(25 * 1000);
+  usleep(25 * 100);
 }
 
 class WampObserver
