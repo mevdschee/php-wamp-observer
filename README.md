@@ -22,96 +22,96 @@ Example metrics:
 
     # HELP wamp_in_errors_seconds A summary of the wamp in errors.
     # TYPE wamp_in_errors_seconds summary
-    wamp_in_errors_count{message="hello1"} 2
-    wamp_in_errors_sum{message="hello1"} 0.137
-    wamp_in_errors_count{message="hello2"} 1
-    wamp_in_errors_sum{message="hello2"} 0.073
-    wamp_in_errors_count{message="hello3"} 4
-    wamp_in_errors_sum{message="hello3"} 0.308
-    wamp_in_errors_count{message="hello4"} 4
-    wamp_in_errors_sum{message="hello4"} 0.348
-    wamp_in_errors_count{message="hello5"} 3
-    wamp_in_errors_sum{message="hello5"} 0.231
-    wamp_in_errors_count{message="hello6"} 2
-    wamp_in_errors_sum{message="hello6"} 0.125
-    wamp_in_errors_count{message="hello7"} 1
-    wamp_in_errors_sum{message="hello7"} 0.083
-    wamp_in_errors_count{message="hello8"} 5
-    wamp_in_errors_sum{message="hello8"} 0.376
-    wamp_in_errors_count{message="hello9"} 3
-    wamp_in_errors_sum{message="hello9"} 0.188
-    # HELP wamp_in_errors_seconds A histogram of the wamp in errors.
-    # TYPE wamp_in_errors_seconds histogram
-    wamp_in_errors_seconds_bucket{le="0.001"} 0
-    wamp_in_errors_seconds_bucket{le="0.01"} 0
-    wamp_in_errors_seconds_bucket{le="0.1"} 23
-    wamp_in_errors_seconds_bucket{le="1"} 25
-    wamp_in_errors_seconds_bucket{le="10"} 25
-    wamp_in_errors_seconds_bucket{le="100"} 25
-    wamp_in_errors_seconds_bucket{le="+Inf"} 25
-    wamp_in_errors_seconds_sum 1.871
-    wamp_in_errors_seconds_count 25
+    wamp_in_errors_seconds_count{message="hello1"} 9
+    wamp_in_errors_seconds_sum{message="hello1"} 0.723
+    wamp_in_errors_seconds_count{message="hello2"} 7
+    wamp_in_errors_seconds_sum{message="hello2"} 0.502
+    wamp_in_errors_seconds_count{message="hello3"} 6
+    wamp_in_errors_seconds_sum{message="hello3"} 0.426
+    wamp_in_errors_seconds_count{message="hello4"} 7
+    wamp_in_errors_seconds_sum{message="hello4"} 0.566
+    wamp_in_errors_seconds_count{message="hello5"} 13
+    wamp_in_errors_seconds_sum{message="hello5"} 0.971
+    wamp_in_errors_seconds_count{message="hello6"} 3
+    wamp_in_errors_seconds_sum{message="hello6"} 0.257
+    wamp_in_errors_seconds_count{message="hello7"} 4
+    wamp_in_errors_seconds_sum{message="hello7"} 0.307
+    wamp_in_errors_seconds_count{message="hello8"} 3
+    wamp_in_errors_seconds_sum{message="hello8"} 0.271
+    wamp_in_errors_seconds_count{message="hello9"} 5
+    wamp_in_errors_seconds_sum{message="hello9"} 0.411
+    # HELP wamp_in_errors_total_seconds A histogram of the wamp in errors.
+    # TYPE wamp_in_errors_total_seconds histogram
+    wamp_in_errors_total_seconds_bucket{le="0.001"} 0
+    wamp_in_errors_total_seconds_bucket{le="0.01"} 0
+    wamp_in_errors_total_seconds_bucket{le="0.1"} 56
+    wamp_in_errors_total_seconds_bucket{le="1"} 57
+    wamp_in_errors_total_seconds_bucket{le="10"} 57
+    wamp_in_errors_total_seconds_bucket{le="100"} 57
+    wamp_in_errors_total_seconds_bucket{le="+Inf"} 57
+    wamp_in_errors_total_seconds_sum 4.435
+    wamp_in_errors_total_seconds_count 57
     # HELP wamp_in_responses_seconds A summary of the wamp in responses.
     # TYPE wamp_in_responses_seconds summary
-    wamp_in_responses_count{message="hello1"} 381
-    wamp_in_responses_sum{message="hello1"} 28.446
-    wamp_in_responses_count{message="hello2"} 318
-    wamp_in_responses_sum{message="hello2"} 23.833
-    wamp_in_responses_count{message="hello3"} 353
-    wamp_in_responses_sum{message="hello3"} 26.253
-    wamp_in_responses_count{message="hello4"} 348
-    wamp_in_responses_sum{message="hello4"} 25.849
-    wamp_in_responses_count{message="hello5"} 299
-    wamp_in_responses_sum{message="hello5"} 22.116
-    wamp_in_responses_count{message="hello6"} 302
-    wamp_in_responses_sum{message="hello6"} 22.547
-    wamp_in_responses_count{message="hello7"} 334
-    wamp_in_responses_sum{message="hello7"} 24.926
-    wamp_in_responses_count{message="hello8"} 318
-    wamp_in_responses_sum{message="hello8"} 24.257
-    wamp_in_responses_count{message="hello9"} 317
-    wamp_in_responses_sum{message="hello9"} 23.906
-    # HELP wamp_in_responses_seconds A histogram of the wamp in responses.
-    # TYPE wamp_in_responses_seconds histogram
-    wamp_in_responses_seconds_bucket{le="0.001"} 0
-    wamp_in_responses_seconds_bucket{le="0.01"} 0
-    wamp_in_responses_seconds_bucket{le="0.1"} 2912
-    wamp_in_responses_seconds_bucket{le="1"} 2970
-    wamp_in_responses_seconds_bucket{le="10"} 2970
-    wamp_in_responses_seconds_bucket{le="100"} 2970
-    wamp_in_responses_seconds_bucket{le="+Inf"} 2970
-    wamp_in_responses_seconds_sum 222.133
-    wamp_in_responses_seconds_count 2970
+    wamp_in_responses_seconds_count{message="hello1"} 591
+    wamp_in_responses_seconds_sum{message="hello1"} 43.989
+    wamp_in_responses_seconds_count{message="hello2"} 576
+    wamp_in_responses_seconds_sum{message="hello2"} 42.666
+    wamp_in_responses_seconds_count{message="hello3"} 624
+    wamp_in_responses_seconds_sum{message="hello3"} 46.508
+    wamp_in_responses_seconds_count{message="hello4"} 568
+    wamp_in_responses_seconds_sum{message="hello4"} 43.037
+    wamp_in_responses_seconds_count{message="hello5"} 632
+    wamp_in_responses_seconds_sum{message="hello5"} 48.004
+    wamp_in_responses_seconds_count{message="hello6"} 660
+    wamp_in_responses_seconds_sum{message="hello6"} 49.111
+    wamp_in_responses_seconds_count{message="hello7"} 645
+    wamp_in_responses_seconds_sum{message="hello7"} 48.806
+    wamp_in_responses_seconds_count{message="hello8"} 632
+    wamp_in_responses_seconds_sum{message="hello8"} 47.228
+    wamp_in_responses_seconds_count{message="hello9"} 644
+    wamp_in_responses_seconds_sum{message="hello9"} 48.047
+    # HELP wamp_in_responses_total_seconds A histogram of the wamp in responses.
+    # TYPE wamp_in_responses_total_seconds histogram
+    wamp_in_responses_total_seconds_bucket{le="0.001"} 0
+    wamp_in_responses_total_seconds_bucket{le="0.01"} 0
+    wamp_in_responses_total_seconds_bucket{le="0.1"} 5454
+    wamp_in_responses_total_seconds_bucket{le="1"} 5572
+    wamp_in_responses_total_seconds_bucket{le="10"} 5572
+    wamp_in_responses_total_seconds_bucket{le="100"} 5572
+    wamp_in_responses_total_seconds_bucket{le="+Inf"} 5572
+    wamp_in_responses_total_seconds_sum 417.396
+    wamp_in_responses_total_seconds_count 5572
     # HELP wamp_in_timeouts_seconds A summary of the wamp in timeouts.
     # TYPE wamp_in_timeouts_seconds summary
-    wamp_in_timeouts_count{message="hello1"} 68
-    wamp_in_timeouts_sum{message="hello1"} 204.035
-    wamp_in_timeouts_count{message="hello2"} 79
-    wamp_in_timeouts_sum{message="hello2"} 237.039
-    wamp_in_timeouts_count{message="hello3"} 72
-    wamp_in_timeouts_sum{message="hello3"} 216.036
-    wamp_in_timeouts_count{message="hello4"} 74
-    wamp_in_timeouts_sum{message="hello4"} 222.032
-    wamp_in_timeouts_count{message="hello5"} 77
-    wamp_in_timeouts_sum{message="hello5"} 231.037
-    wamp_in_timeouts_count{message="hello6"} 78
-    wamp_in_timeouts_sum{message="hello6"} 234.037
-    wamp_in_timeouts_count{message="hello7"} 81
-    wamp_in_timeouts_sum{message="hello7"} 243.043
-    wamp_in_timeouts_count{message="hello8"} 82
-    wamp_in_timeouts_sum{message="hello8"} 246.041
-    wamp_in_timeouts_count{message="hello9"} 95
-    wamp_in_timeouts_sum{message="hello9"} 285.045
-    # HELP wamp_in_timeouts_seconds A histogram of the wamp in timeouts.
-    # TYPE wamp_in_timeouts_seconds histogram
-    wamp_in_timeouts_seconds_bucket{le="0.001"} 0
-    wamp_in_timeouts_seconds_bucket{le="0.01"} 0
-    wamp_in_timeouts_seconds_bucket{le="0.1"} 0
-    wamp_in_timeouts_seconds_bucket{le="1"} 0
-    wamp_in_timeouts_seconds_bucket{le="10"} 706
-    wamp_in_timeouts_seconds_bucket{le="100"} 706
-    wamp_in_timeouts_seconds_bucket{le="+Inf"} 706
-    wamp_in_timeouts_seconds_sum 2118.343
-    wamp_in_timeouts_seconds_count 706
+    wamp_in_timeouts_seconds_count{message="hello1"} 113
+    wamp_in_timeouts_seconds_sum{message="hello1"} 339.047
+    wamp_in_timeouts_seconds_count{message="hello2"} 128
+    wamp_in_timeouts_seconds_sum{message="hello2"} 384.053
+    wamp_in_timeouts_seconds_count{message="hello3"} 126
+    wamp_in_timeouts_seconds_sum{message="hello3"} 378.055
+    wamp_in_timeouts_seconds_count{message="hello4"} 104
+    wamp_in_timeouts_seconds_sum{message="hello4"} 312.045
+    wamp_in_timeouts_seconds_count{message="hello5"} 108
+    wamp_in_timeouts_seconds_sum{message="hello5"} 324.042
+    wamp_in_timeouts_seconds_count{message="hello6"} 127
+    wamp_in_timeouts_seconds_sum{message="hello6"} 381.049
+    wamp_in_timeouts_seconds_count{message="hello7"} 107
+    wamp_in_timeouts_seconds_sum{message="hello7"} 321.049
+    wamp_in_timeouts_seconds_count{message="hello8"} 101
+    wamp_in_timeouts_seconds_sum{message="hello8"} 303.042
+    wamp_in_timeouts_seconds_count{message="hello9"} 120
+    wamp_in_timeouts_seconds_sum{message="hello9"} 360.048
+    # HELP wamp_in_timeouts_total_seconds A histogram of the wamp in timeouts.
+    # TYPE wamp_in_timeouts_total_seconds histogram
+    wamp_in_timeouts_total_seconds_bucket{le="0.001"} 0
+    wamp_in_timeouts_total_seconds_bucket{le="0.01"} 0
+    wamp_in_timeouts_total_seconds_bucket{le="0.1"} 0
+    wamp_in_timeouts_total_seconds_bucket{le="1"} 0
+    wamp_in_timeouts_total_seconds_bucket{le="10"} 1034
+    wamp_in_timeouts_total_seconds_bucket{le="100"} 1034
+    wamp_in_timeouts_total_seconds_bucket{le="+Inf"} 1034
+    wamp_in_timeouts_total_seconds_sum 3102.429
+    wamp_in_timeouts_total_seconds_count 1034
 
 Enjoy!
