@@ -47,7 +47,7 @@ class WampObserver
   {
     if (!self::$socket) {
       self::$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP) ?: null;
-      socket_set_nonblock(self::$socket);
+      socket_set_option(self::$socket, SOL_SOCKET, SO_SNDTIMEO, array('sec' => 0, 'usec' => 1));
       self::$connected = false;
     }
     if (!self::$connected) {
