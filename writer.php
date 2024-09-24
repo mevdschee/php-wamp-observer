@@ -54,7 +54,7 @@ class WampObserver
       }
     }
     if (self::$connected) {
-      $line = "$protocol:$direction:$message";
+      $line = json_encode([$protocol, $direction, $message]);
       if (!@socket_write(self::$socket, $line . "\n", strlen($line) + 1)) {
         self::$socket = null;
         self::$connected = false;
