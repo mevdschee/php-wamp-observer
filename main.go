@@ -18,7 +18,7 @@ var track = tracking.New()
 
 func main() {
 	listenAddress := flag.String("listen", ":6666", "address to listen for high frequent events over TCP")
-	metricsAddress := flag.String("metrics", ":4000", "address to listen for Prometheus metric scraper over HTTP")
+	metricsAddress := flag.String("metrics", ":8080", "address to listen for Prometheus metric scraper over HTTP")
 	flag.Parse()
 	go serve(*metricsAddress)
 	wampListener(*listenAddress)
