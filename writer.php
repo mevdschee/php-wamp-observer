@@ -11,30 +11,26 @@ while (true) {
   $protocol = 'wamp';
   $direction = 'in';
   // send request
-  if (WampObserver::logging()) {
-    WampObserver::log($protocol, $direction, $inMsg);
-  }
+  Observer::log($protocol . ':' . $direction . ':' . $inMsg);
   usleep(random_int(50, 100) * 100);
   // 1 out of 9 gets delayed for the timeout period
   if (random_int(1, 9) == 5) {
     usleep(300 * 1000);
   }
   // send response
-  if (WampObserver::logging()) {
-    // 1 out of 9 does not get answered
-    if (random_int(1, 9) != 5) {
-      // 1 out of 99 is an error
-      if (random_int(1, 99) == 5) {
-        WampObserver::log($protocol, $direction, $errorMsg);
-      } else {
-        WampObserver::log($protocol, $direction, $outMsg);
-      }
+  // 1 out of 9 does not get answered
+  if (random_int(1, 9) != 5) {
+    // 1 out of 99 is an error
+    if (random_int(1, 99) == 5) {
+      Observer::log($protocol . ':' . $direction . ':' . $errorMsg);
+    } else {
+      Observer::log($protocol . ':' . $direction . ':' . $outMsg);
     }
   }
   usleep(25 * 100);
 }
 
-class WampObserver
+class Observer
 {
   public static string $address = 'localhost';
   public static int $port = 6666;
@@ -43,7 +39,7 @@ class WampObserver
   private static bool $connected = false;
   private static int $connectAt = 0;
 
-  public static function logging(bool $connect = true): bool
+  public static function log(string $line)
   {
     if (!self::$socket) {
       self::$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP) ?: null;
@@ -52,19 +48,13 @@ class WampObserver
     }
     if (!self::$connected) {
       $now = time();
-      if ($connect && self::$connectAt != $now) {
+      if (self::$connectAt != $now) {
         self::$connectAt = $now;
         self::$connected = @socket_connect(self::$socket, self::$address, self::$port);
       }
     }
-    return self::$connected;
-  }
-
-  public static function log(string $protocol, string $direction, string $message)
-  {
     if (self::$connected) {
-      $line = "$protocol:$direction:$message\n";
-      if (!@socket_write(self::$socket, $line, strlen($line))) {
+      if (!@socket_write(self::$socket, $line . "\n", strlen($line) + 1)) {
         self::$socket = null;
         self::$connected = false;
       }
