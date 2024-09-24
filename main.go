@@ -54,6 +54,7 @@ func handleWampConn(conn net.Conn) {
 		input := scan.Text()
 		fields := strings.SplitN(input, ":", 3)
 		if len(fields) != 3 {
+			log.Printf("malformed input: %v", input)
 			continue
 		}
 		protocol := fields[0]
