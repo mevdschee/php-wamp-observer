@@ -11,7 +11,7 @@ while (true) {
   $protocol = 'wamp';
   $direction = 'in';
   // send request
-  Observer::log($protocol . ':' . $direction . ':' . $inMsg);
+  WampObserver::log($protocol, $direction, $inMsg);
   usleep(random_int(50, 100) * 100);
   // 1 out of 9 gets delayed for the timeout period
   if (random_int(1, 9) == 5) {
@@ -22,15 +22,15 @@ while (true) {
   if (random_int(1, 9) != 5) {
     // 1 out of 99 is an error
     if (random_int(1, 99) == 5) {
-      Observer::log($protocol . ':' . $direction . ':' . $errorMsg);
+      WampObserver::log($protocol, $direction, $errorMsg);
     } else {
-      Observer::log($protocol . ':' . $direction . ':' . $outMsg);
+      WampObserver::log($protocol, $direction, $outMsg);
     }
   }
   usleep(25 * 100);
 }
 
-class Observer
+class WampObserver
 {
   public static string $address = 'localhost';
   public static int $port = 6666;
@@ -39,7 +39,7 @@ class Observer
   private static bool $connected = false;
   private static int $connectAt = 0;
 
-  public static function log(string $line)
+  public static function log(string $protocol, string $direction, string $message)
   {
     if (!self::$socket) {
       self::$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP) ?: null;
@@ -54,6 +54,7 @@ class Observer
       }
     }
     if (self::$connected) {
+      $line = "$protocol:$direction:$message";
       if (!@socket_write(self::$socket, $line . "\n", strlen($line) + 1)) {
         self::$socket = null;
         self::$connected = false;
