@@ -39,7 +39,7 @@ class WampObserver
   private static bool $connected = false;
   private static int $connectAt = 0;
 
-  public static function log(string $protocol, string $direction, string $message)
+  public static function loging(): bool
   {
     if (!self::$socket) {
       self::$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP) ?: null;
@@ -53,6 +53,11 @@ class WampObserver
         self::$connected = @socket_connect(self::$socket, self::$address, self::$port);
       }
     }
+    return self::$connected;
+  }
+
+  public static function log(string $protocol, string $direction, string $message)
+  {
     if (self::$connected) {
       $line = json_encode([$protocol, $direction, $message]);
       if (!@socket_write(self::$socket, $line . "\n", strlen($line) + 1)) {
