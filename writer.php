@@ -5,9 +5,9 @@ while (true) {
   $id = uniqid();
   $i++;
   $t = random_int(1, 9);
-  $inMsg = '[2,"' . $id . '","hello' . $t . '",{"msg":"hello world' . $i . ' details"}]';
-  $outMsg = '[3,"' . $id . '","{msg":"hello world' . $i . ' reply details"}]';
-  $errorMsg = '[4,"' . $id . ',"{msg":"hello world' . $i . ' error details"}]';
+  $inMsg = json_encode([2, $id, "hello$t", ["msg" => "hello world$i request details"]]);
+  $outMsg = json_encode([3, $id, ["msg" => "hello world$i reply details"]]);
+  $errorMsg = json_encode([4, $id, ["msg" => "hello world$i error details"]]);
   $protocol = 'wamp';
   $direction = 'in';
   // send request

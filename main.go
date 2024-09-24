@@ -7,7 +7,6 @@ import (
 	"log"
 	"net"
 	"net/http"
-	"strings"
 	"time"
 
 	"github.com/mevdschee/php-wamp-observer/statistics"
@@ -61,12 +60,17 @@ func handleWampConn(conn net.Conn) {
 		}
 		protocol := fields[0]
 		direction := fields[1]
-		message := fields[2]
-		msgFields := strings.SplitN(strings.Trim(message, "[]"), ",", 4)
-		msgType := msgFields[0]
-		msgId := strings.Trim(msgFields[1], "\"")
-		if strings.TrimSpace(msgType) == "2" {
-			msgName := strings.Trim(msgFields[2], "\"")
+		messageString := fields[2]
+		var message []any
+		err := json.Unmarshal([]byte(messageString), &message)
+		if err != nil {
+			log.Printf("malformed message: %v", messageString)
+			continue
+		}
+		msgType := int(message[0].(float64))
+		msgId := message[1].(string)
+		if msgType == 2 {
+			msgName := message[2].(string)
 			track.Add(msgId, msgName, time.Now(), 300*time.Millisecond, func() {
 				start, msgName, ok := track.Del(msgId)
 				if ok {
@@ -75,14 +79,14 @@ func handleWampConn(conn net.Conn) {
 				}
 			})
 		}
-		if strings.TrimSpace(msgType) == "3" {
+		if msgType == 3 {
 			start, msgName, ok := track.Del(msgId)
 			if ok {
 				duration := time.Since(start).Seconds()
 				stats.Add(protocol+"_"+direction+"_responses", "message", msgName, duration)
 			}
 		}
-		if strings.TrimSpace(msgType) == "4" {
+		if msgType == 4 {
 			start, msgName, ok := track.Del(msgId)
 			if ok {
 				duration := time.Since(start).Seconds()
