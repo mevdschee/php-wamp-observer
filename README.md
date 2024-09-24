@@ -1,5 +1,9 @@
 # php-wamp-observer
 
+A code base to showcase high frequency websocket (WAMP RPC) message logging in PHP and aggregating into metrics using Go.
+
+### Usage
+
 To run the server:
 
     go run .
@@ -18,7 +22,9 @@ http://localhost:8080/
 
 NB: The metrics are Prometheus compatible and follow the [OpenMetrics specification](https://github.com/OpenObservability/OpenMetrics/).
 
-Example metrics:
+### Example metrics
+
+Here is an example of published metrics:
 
     # HELP wamp_in_errors_seconds A summary of the wamp in errors.
     # TYPE wamp_in_errors_seconds summary
