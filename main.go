@@ -9,11 +9,11 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/mevdschee/php-wamp-observer/statistics"
+	"github.com/mevdschee/php-observability/statistics"
 	"github.com/mevdschee/php-wamp-observer/tracking"
 )
 
-var stats = statistics.NewDefault()
+var stats = statistics.New()
 var track = tracking.New()
 
 func main() {
