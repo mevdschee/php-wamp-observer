@@ -121,7 +121,7 @@ func (s *Statistics) WriteGob(writer *http.ResponseWriter) {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 	enc := gob.NewEncoder((*writer))
-	err := enc.Encode(s.Names)
+	err := enc.Encode(s)
 	if err != nil {
 		log.Fatal("encode:", err)
 	}
