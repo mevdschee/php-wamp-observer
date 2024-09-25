@@ -10,7 +10,7 @@ import (
 	"sync"
 )
 
-type Boundary struct {
+type Bucket struct {
 	name  string
 	value float64
 }
@@ -22,26 +22,26 @@ type StatisticSet struct {
 }
 
 type Statistics struct {
-	mutex      sync.Mutex
-	names      map[string]StatisticSet
-	boundaries []Boundary
+	mutex   sync.Mutex
+	names   map[string]StatisticSet
+	buckets []Bucket
 }
 
-func New(boundaries []float64) *Statistics {
+func New(buckets []float64) *Statistics {
 	s := Statistics{
-		names:      map[string]StatisticSet{},
-		boundaries: []Boundary{},
+		names:   map[string]StatisticSet{},
+		buckets: []Bucket{},
 	}
-	sort.Float64s(boundaries)
-	for _, value := range boundaries {
+	sort.Float64s(buckets)
+	for _, value := range buckets {
 		name := fmt.Sprintf("%g", value)
-		s.boundaries = append(s.boundaries, Boundary{name, value})
+		s.buckets = append(s.buckets, Bucket{name, value})
 	}
-	s.boundaries = append(s.boundaries, Boundary{"+Inf", math.MaxFloat64})
+	s.buckets = append(s.buckets, Bucket{"+Inf", math.MaxFloat64})
 	return &s
 }
 
-func (s *Statistics) Add(name string, tagName string, tag string, duration float64) {
+func (s *Statistics) Add(name string, tagName string, tagValue string, duration float64) {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 	key := name + "|" + tagName
@@ -54,10 +54,10 @@ func (s *Statistics) Add(name string, tagName string, tag string, duration float
 		}
 		s.names[key] = ss
 	}
-	ss.counters[tag]++
-	ss.durations[tag] += duration
-	for i := len(s.boundaries) - 1; i >= 0; i-- {
-		b := s.boundaries[i]
+	ss.counters[tagValue]++
+	ss.durations[tagValue] += duration
+	for i := len(s.buckets) - 1; i >= 0; i-- {
+		b := s.buckets[i]
 		if b.value < duration {
 			break
 		}
@@ -101,7 +101,7 @@ func (s *Statistics) Write(writer *http.ResponseWriter) {
 		(*writer).Write([]byte("# TYPE " + metricName + "_total_seconds histogram\n"))
 		(*writer).Write([]byte("# UNIT " + metricName + "_total_seconds seconds\n"))
 		(*writer).Write([]byte("# HELP " + metricName + "_total_seconds A histogram of the " + strings.ReplaceAll(metricName, "_", " ") + ".\n"))
-		for _, b := range s.boundaries {
+		for _, b := range s.buckets {
 			v := ss.buckets[b.name]
 			(*writer).Write([]byte(metricName + "_total_seconds_bucket{le=" + strconv.Quote(b.name) + "} " + strconv.FormatUint(v, 10) + "\n"))
 		}
