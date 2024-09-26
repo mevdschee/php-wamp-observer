@@ -22,6 +22,12 @@ http://localhost:8080/
 
 NB: The metrics are Prometheus compatible and follow the [OpenMetrics specification](https://github.com/OpenObservability/OpenMetrics/).
 
+The metrics are also served in the Gob binary format on:
+
+http://localhost:9999/
+
+This endpoint can be scraped by other tools such as this tool itself (creating a mesh) by using the "-scrape" parameter.
+
 ### Example metrics
 
 Here is an example of published metrics:
