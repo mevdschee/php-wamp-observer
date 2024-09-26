@@ -26,7 +26,7 @@ The metrics are also served in the Gob binary format on:
 
 http://localhost:9999/
 
-This endpoint can be scraped by other tools such as [php-observability](https://github.com/mevdschee/php-observability) (creating a mesh) by using it's "-scrape" parameter.
+This endpoint can be scraped by other tools such as [php-observability](https://github.com/mevdschee/php-observability).
 
 ### Example metrics
 
