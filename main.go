@@ -7,28 +7,48 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"os"
+	"runtime/pprof"
 	"time"
 
-	"github.com/mevdschee/php-observability/statistics"
+	"github.com/mevdschee/php-observability/metrics"
 	"github.com/mevdschee/php-wamp-observer/tracking"
 )
 
-var stats = statistics.New()
+var stats = metrics.New()
 var track = tracking.New()
 
 func main() {
+	cpuprofile := flag.String("cpuprofile", "", "write cpu profile to file")
+	memprofile := flag.String("memprofile", "", "write mem profile to file")
 	listenAddress := flag.String("listen", "localhost:6666", "address to listen for high frequent events over TCP")
 	metricsAddress := flag.String("metrics", ":8080", "address to listen for Prometheus metric scraper over HTTP")
 	binaryAddress := flag.String("binary", ":9999", "address to listen for Gob metric scraper over HTTP")
 	flag.Parse()
-	go serve(*metricsAddress)
+	if *cpuprofile != "" {
+		f, err := os.Create(*cpuprofile)
+		if err != nil {
+			log.Fatal(err)
+		}
+		pprof.StartCPUProfile(f)
+		defer pprof.StopCPUProfile()
+	}
+	go serve(*memprofile, *metricsAddress)
 	go serveGob(*binaryAddress)
 	wampListener(*listenAddress)
 }
 
-func serve(metricsAddress string) {
+func serve(memprofile, metricsAddress string) {
 	err := http.ListenAndServe(metricsAddress, http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
 		stats.Write(&writer)
+		if memprofile != "" {
+			f, err := os.Create(memprofile)
+			if err != nil {
+				log.Fatal(err)
+			}
+			pprof.WriteHeapProfile(f)
+			f.Close()
+		}
 	}))
 	log.Fatal(err)
 }
