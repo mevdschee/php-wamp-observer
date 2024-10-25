@@ -27,7 +27,7 @@ func New(stats *metrics.Metrics) *Tracking {
 	return &t
 }
 
-func (t *Tracking) Add(msgId string, msgName string, val time.Time, timeout time.Duration, timeoutFunc func()) {
+func (t *Tracking) add(msgId string, msgName string, val time.Time, timeout time.Duration, timeoutFunc func()) {
 	t.mutex.Lock()
 	defer t.mutex.Unlock()
 	t.msgIds[msgId] = val
@@ -35,7 +35,7 @@ func (t *Tracking) Add(msgId string, msgName string, val time.Time, timeout time
 	t.timers[msgId] = time.AfterFunc(timeout, timeoutFunc)
 }
 
-func (t *Tracking) Del(msgId string) (time.Time, string, bool) {
+func (t *Tracking) del(msgId string) (time.Time, string, bool) {
 	t.mutex.Lock()
 	defer t.mutex.Unlock()
 	val := t.msgIds[msgId]
@@ -67,8 +67,8 @@ func (t *Tracking) Track(protocol, direction, messageString string) error {
 	msgId := message[1].(string)
 	if msgType == 2 {
 		msgName := message[2].(string)
-		t.Add(msgId, msgName, time.Now(), 300*time.Millisecond, func() {
-			start, msgName, ok := t.Del(msgId)
+		t.add(msgId, msgName, time.Now(), 300*time.Millisecond, func() {
+			start, msgName, ok := t.del(msgId)
 			if ok {
 				duration := time.Since(start).Seconds()
 				t.stats.Add(protocol+"_"+direction+"_timeouts", "message", msgName, duration)
@@ -76,14 +76,14 @@ func (t *Tracking) Track(protocol, direction, messageString string) error {
 		})
 	}
 	if msgType == 3 {
-		start, msgName, ok := t.Del(msgId)
+		start, msgName, ok := t.del(msgId)
 		if ok {
 			duration := time.Since(start).Seconds()
 			t.stats.Add(protocol+"_"+direction+"_responses", "message", msgName, duration)
 		}
 	}
 	if msgType == 4 {
-		start, msgName, ok := t.Del(msgId)
+		start, msgName, ok := t.del(msgId)
 		if ok {
 			duration := time.Since(start).Seconds()
 			t.stats.Add(protocol+"_"+direction+"_errors", "message", msgName, duration)
