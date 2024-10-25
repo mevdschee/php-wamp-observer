@@ -57,15 +57,7 @@ func (t *Tracking) Len() int {
 	return len(t.msgIds)
 }
 
-func (t *Tracking) Track(input string) error {
-	var fields []string
-	json.Unmarshal([]byte(input), &fields)
-	if len(fields) != 3 {
-		return fmt.Errorf("malformed input: %v", input)
-	}
-	protocol := fields[0]
-	direction := fields[1]
-	messageString := fields[2]
+func (t *Tracking) Track(protocol, direction, messageString string) error {
 	var message []any
 	err := json.Unmarshal([]byte(messageString), &message)
 	if err != nil {

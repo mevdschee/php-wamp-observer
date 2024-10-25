@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"encoding/json"
 	"flag"
 	"log"
 	"net"
@@ -80,7 +81,12 @@ func handleWampConn(conn net.Conn) {
 	scan := bufio.NewScanner(conn)
 	for scan.Scan() {
 		input := scan.Text()
-		err := track.Track(input)
+		var fields []string
+		json.Unmarshal([]byte(input), &fields)
+		if len(fields) != 3 {
+			log.Printf("malformed input: %v", input)
+		}
+		err := track.Track(fields[0], fields[1], fields[2])
 		log.Println(err.Error())
 		//log.Printf("track length: %v", track.Len())
 		//log.Printf("received input: %v", input)
