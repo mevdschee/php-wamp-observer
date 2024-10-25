@@ -57,7 +57,7 @@ func (t *Tracking) Len() int {
 	return len(t.msgIds)
 }
 
-func (t *Tracking) Track(protocol, direction, messageString string) error {
+func (t *Tracking) Track(messageType, messageString string) error {
 	var message []any
 	err := json.Unmarshal([]byte(messageString), &message)
 	if err != nil {
@@ -71,7 +71,7 @@ func (t *Tracking) Track(protocol, direction, messageString string) error {
 			start, msgName, ok := t.del(msgId)
 			if ok {
 				duration := time.Since(start).Seconds()
-				t.stats.Add(protocol+"_"+direction+"_timeouts", "message", msgName, duration)
+				t.stats.Add(messageType+"_timeouts", "message", msgName, duration)
 			}
 		})
 	}
@@ -79,14 +79,14 @@ func (t *Tracking) Track(protocol, direction, messageString string) error {
 		start, msgName, ok := t.del(msgId)
 		if ok {
 			duration := time.Since(start).Seconds()
-			t.stats.Add(protocol+"_"+direction+"_responses", "message", msgName, duration)
+			t.stats.Add(messageType+"_responses", "message", msgName, duration)
 		}
 	}
 	if msgType == 4 {
 		start, msgName, ok := t.del(msgId)
 		if ok {
 			duration := time.Since(start).Seconds()
-			t.stats.Add(protocol+"_"+direction+"_errors", "message", msgName, duration)
+			t.stats.Add(messageType+"_errors", "message", msgName, duration)
 		}
 	}
 	return nil
