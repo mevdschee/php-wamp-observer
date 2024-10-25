@@ -86,7 +86,7 @@ func handleWampConn(conn net.Conn) {
 		if len(fields) != 3 {
 			log.Printf("malformed input: %v", input)
 		}
-		err := track.Track(fields[0], fields[1], fields[2])
+		err := track.Track(fields[0]+"_"+fields[1], fields[2])
 		log.Println(err.Error())
 		//log.Printf("track length: %v", track.Len())
 		//log.Printf("received input: %v", input)
