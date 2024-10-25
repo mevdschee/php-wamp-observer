@@ -39,7 +39,7 @@ func main() {
 
 func serve(memprofile, metricsAddress string) {
 	err := http.ListenAndServe(metricsAddress, http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
-		stats.Write(&writer)
+		stats.Write(writer)
 		if memprofile != "" {
 			f, err := os.Create(memprofile)
 			if err != nil {
@@ -54,7 +54,7 @@ func serve(memprofile, metricsAddress string) {
 
 func serveGob(metricsAddress string) {
 	err := http.ListenAndServe(metricsAddress, http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
-		stats.WriteGob(&writer)
+		stats.WriteGob(writer)
 	}))
 	log.Fatal(err)
 }
