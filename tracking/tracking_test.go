@@ -60,7 +60,7 @@ func TestTrackTimeout(t *testing.T) {
 		t.Errorf("error tracking request: %q", err.Error())
 	}
 	time.Sleep(10 * time.Millisecond)
-	response := "[3, \"123\", \"Hello\", {\"message\": \"Hello world!\"}]"
+	response := "[3, \"123\", {\"message\": \"Hello world!\"}]"
 	err = track.Track(protocol+"_"+direction, response)
 	if err != nil {
 		t.Errorf("error tracking response: %q", err.Error())
