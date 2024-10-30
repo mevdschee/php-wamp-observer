@@ -15,7 +15,7 @@ import (
 // the same messageId and checks that these are properly reported in the metrics.
 func TestTrack(t *testing.T) {
 	stats := metrics.New()
-	track := New(stats, 300*time.Millisecond)
+	track := New(stats, 10*time.Millisecond)
 	protocol := "wamp"
 	direction := "in"
 	request := "[2, \"123\", \"Hello\", {\"message\": \"Hello world!\"}]"
