@@ -153,8 +153,12 @@ func TestBuckets(t *testing.T) {
 		t.Errorf("error reading body: %q", err.Error())
 	}
 	got := string(body)
-	want := "wamp_in_responses_total_seconds_bucket{le=\"0.025\"} 2"
-	if !strings.Contains(got, want) {
-		t.Errorf("got %s, want %s", got, want)
+	want1 := "wamp_in_responses_total_seconds_bucket{le=\"0.005\"} 1"
+	want2 := "wamp_in_responses_total_seconds_bucket{le=\"0.025\"} 2"
+	if !strings.Contains(got, want1) {
+		t.Errorf("got %s, want %s", got, want1)
+	}
+	if !strings.Contains(got, want2) {
+		t.Errorf("got %s, want %s", got, want2)
 	}
 }
