@@ -2,6 +2,11 @@
 
 A code base to showcase high frequency websocket (WAMP RPC) message logging in PHP and aggregating into metrics using Go.
 
+### Requirements
+
+- PHP 8 or higher (see special PHP 5/7 compatible version)
+- Go 1.22 build environment
+
 ### Usage
 
 To run the server:
