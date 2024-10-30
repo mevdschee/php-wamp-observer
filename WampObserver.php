@@ -2,7 +2,6 @@
 
 class WampObserver
 {
-    public static string $address = 'localhost';
     public static int $port = 6666;
 
     private static ?Socket $socket = null;
@@ -19,7 +18,7 @@ class WampObserver
             $now = time();
             if (self::$connectAt != $now) {
                 self::$connectAt = $now;
-                self::$connected = @socket_connect(self::$socket, self::$address, self::$port);
+                self::$connected = @socket_connect(self::$socket, 'localhost', self::$port);
             }
         }
         return self::$connected;
