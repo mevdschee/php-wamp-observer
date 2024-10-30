@@ -15,14 +15,16 @@ type Tracking struct {
 	msgNames map[string]string
 	timers   map[string]*time.Timer
 	stats    *metrics.Metrics
+	timeout  time.Duration
 }
 
-func New(stats *metrics.Metrics) *Tracking {
+func New(stats *metrics.Metrics, timeout time.Duration) *Tracking {
 	t := Tracking{
 		msgIds:   map[string]time.Time{},
 		msgNames: map[string]string{},
 		timers:   map[string]*time.Timer{},
 		stats:    stats,
+		timeout:  timeout,
 	}
 	return &t
 }
@@ -67,7 +69,7 @@ func (t *Tracking) Track(messageType, messageString string) error {
 	msgId := message[1].(string)
 	if msgType == 2 {
 		msgName := message[2].(string)
-		t.add(msgId, msgName, time.Now(), 300*time.Millisecond, func() {
+		t.add(msgId, msgName, time.Now(), t.timeout, func() {
 			start, msgName, ok := t.del(msgId)
 			if ok {
 				duration := time.Since(start).Seconds()

@@ -9,13 +9,14 @@ import (
 	"net/http"
 	"os"
 	"runtime/pprof"
+	"time"
 
 	"github.com/mevdschee/php-observability/metrics"
 	"github.com/mevdschee/php-wamp-observer/tracking"
 )
 
 var stats = metrics.New()
-var track = tracking.New(stats)
+var track = tracking.New(stats, 300*time.Millisecond)
 
 func main() {
 	cpuprofile := flag.String("cpuprofile", "", "write cpu profile to file")
